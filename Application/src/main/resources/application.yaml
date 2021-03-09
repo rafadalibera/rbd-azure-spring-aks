@@ -1,2 +1,9 @@
 server:
   port: 8083
+
+azure:
+  cosmosdb:
+    uri: 
+    key:
+    secondaryKey:
+    database:
