@@ -1,0 +1,174 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Demo Azure Spring API",
+    "description": "A sample API with information related to a technical conference.  The available resources  include *Speakers*, *Sessions* and *Topics*.  A single write operation is available to provide  feedback on a session.",
+    "version": "1.0.0"
+  },
+  "host": "20.72.142.238:443",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "paths": {
+    "/diseases": {
+      "get": {
+        "description": "A list of diseases. Optional parameters work as filters to reduce the listed diseases.",
+        "operationId": "GetDiseases",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/vnd.collection+json"
+        ]
+      },
+      "post": {
+        "description": "Register a new Disease",
+        "operationId": "SubmitDisease",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "disease_id": {
+                  "type": "string",
+                  "example": "005"
+                },
+                "disease_name": {
+                  "type": "string",
+                  "example": "Ivic Syndrome"
+                },
+                "mifts": {
+                  "type": "integer",
+                  "example": 40
+                },
+                "disease_category": {
+                  "type": "string",
+                  "example": "Blood Diseases"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/hal+json",
+          "text/plain"
+        ],
+        "consumes": [
+          "text/plain",
+          "json"
+        ]
+      }
+    },
+    "/diseases/{id}/category/{category}": {
+      "get": {
+        "description": "Retrive a disease by its id and category",
+        "operationId": "GetDisease",
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          },
+          {
+            "$ref": "#/parameters/category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/hal+json",
+          "text/plain"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteDisease",
+        "description": "Detete a disease by its id and category",
+        "parameters": [
+          {
+            "$ref": "#/parameters/id"
+          },
+          {
+            "$ref": "#/parameters/category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/vnd.collection+json"
+        ]
+      }
+    },
+    "/test": {
+      "get": {
+        "operationId": "Test API",
+        "description": "Test API that returns a Hello message",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/vnd.collection+json"
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "category": {
+      "name": "category",
+      "in": "path",
+      "description": "Category of a Disease.",
+      "required": true,
+      "type": "string"
+    },
+    "id": {
+      "name": "id",
+      "in": "path",
+      "description": "Format - int32.",
+      "required": true,
+      "type": "integer"
+    }
+  }
+}
