@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "4412a9cb-6705-489c-8711-8d9f97503feb",
+		"name": "Azure Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test Application Connection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/test",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Message to Service Bus Queue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"teste\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/messages?message=test11",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"messages"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "test11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new disease",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"disease_id\" : \"02\",\r\n    \"disease_name\" : \"Phocomelia\",\r\n    \"mifts\" : 24,\r\n    \"disease_category\" : \"Blood Diseases\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/diseases",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"diseases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Diseases List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Host",
+						"value": "20.72.142.238:8083",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "34916866a4e242159ac7e87bae288c7d",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "cross-site",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "X-Forwarded-For",
+						"value": "179.111.199.242,13.91.254.72",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache, no-store",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/plain;charset=UTF-8",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip,deflate,br",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,pt;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://apimanagement.hosting.portal.azure.net/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/diseases/?name=Phocomelia",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"diseases",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Phocomelia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Disease",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Host",
+						"value": "20.72.142.238:8083",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "34916866a4e242159ac7e87bae288c7d",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "cross-site",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "X-Forwarded-For",
+						"value": "179.111.199.242,13.91.254.72",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache, no-store",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/plain;charset=UTF-8",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip,deflate,br",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,pt;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://apimanagement.hosting.portal.azure.net/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/diseases/{id}/category/{disease}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"diseases",
+						"{id}",
+						"category",
+						"{disease}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete One Disease",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Host",
+						"value": "20.72.142.238:8083",
+						"type": "text"
+					},
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "34916866a4e242159ac7e87bae288c7d",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "cross-site",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "X-Forwarded-For",
+						"value": "179.111.199.242,13.91.254.72",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache, no-store",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/plain;charset=UTF-8",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip,deflate,br",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,pt;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://apimanagement.hosting.portal.azure.net/",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/diseases/{id}/category/{disease}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"diseases",
+						"{id}",
+						"category",
+						"{disease}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
