@@ -1,7 +1,11 @@
+# ---------------------------- Resource Group  ----------------------------
+
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
 }
+
+# ---------------------------- Azure Container Registry  ----------------------------
 
 resource "azurerm_role_assignment" "role_acrpull" {
   scope                            = azurerm_container_registry.acr.id
@@ -17,6 +21,8 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Standard"
   admin_enabled       = false
 }
+
+# ---------------------------- Azure Kubernetes Service  ----------------------------
 
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.cluster_name
@@ -42,4 +48,53 @@ resource "azurerm_kubernetes_cluster" "aks" {
     load_balancer_sku = "Standard"
     network_plugin    = "kubenet" # CNI
   }
+}
+
+# ---------------------------- Cosmos DB  ----------------------------
+
+resource "azurerm_cosmosdb_account" "acc" {
+  name                      = var.cosmos_db_account_name
+  location                  = azurerm_resource_group.rg.location
+  resource_group_name       = azurerm_resource_group.rg.name
+  offer_type                = "Standard"
+  kind                      = "GlobalDocumentDB"
+  enable_automatic_failover = false
+
+consistency_policy {
+    consistency_level = "Session"
+  }
+
+geo_location {
+    location            = azurerm_resource_group.rg.location
+    failover_priority   = 0
+  }
+}
+
+# ---------------------------- Databases ----------------------------
+
+resource "azurerm_cosmosdb_sql_database" "diseasesdb" {
+  name                  = "diseases"
+  resource_group_name   = azurerm_cosmosdb_account.acc.resource_group_name
+  account_name          = azurerm_cosmosdb_account.acc.name
+}
+
+# ---------------------------- Azure Service Bus ----------------------------
+
+resource "azurerm_servicebus_namespace" "sb_namespace" {
+  name                = var.servicebus_namespace_name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "Standard"
+
+  tags = {
+    source = "terraform"
+  }
+}
+
+resource "azurerm_servicebus_queue" "sb_queue1" {
+  name                = "queue1"
+  resource_group_name = azurerm_resource_group.rg.name
+  namespace_name      = azurerm_servicebus_namespace.sb_namespace.name
+
+  enable_partitioning = true
 }
