@@ -3,7 +3,19 @@ server:
 
 azure:
   cosmosdb:
-    uri: 
+    uri:
     key:
-    secondaryKey:
     database:
+
+spring:
+  jms:
+    servicebus:
+      connection-string:
+#      idle-timeout:
+#      pricing-tier:
+      queues:
+        queue-1:
+
+
+
+

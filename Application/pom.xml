@@ -34,12 +34,20 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Azure Dependencies -->
+		<!-- Azure Cosmos DB Dependencies -->
 
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
 			<artifactId>spring-data-cosmosdb</artifactId>
 			<version>2.3.0</version>
+		</dependency>
+
+		<!-- Azure Service Bus Dependencies -->
+
+		<dependency>
+			<groupId>com.azure.spring</groupId>
+			<artifactId>azure-spring-boot-starter-servicebus-jms</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 
 		<dependency>

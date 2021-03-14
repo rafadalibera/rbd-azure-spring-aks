@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import com.azure.data.cosmos.PartitionKey;
 import com.example.demo.mapper.DiseaseMapper;
 import com.example.demo.model.Disease;
 import com.example.demo.repository.DiseaseRepository;
 import com.example.demo.repository.entity.DiseaseEntity;
+import com.example.demo.service.DiseaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
