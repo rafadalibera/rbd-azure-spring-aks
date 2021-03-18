@@ -16,7 +16,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: demo
-        image: <acr>.azurecr.io/demo:v1
+        image: <acr>/demo:v1
         env:
         - name: ALLOW_EMPTY_PASSWORD
           value: "yes"
@@ -31,8 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: <resource-group>
   name: demo
 spec:
+  loadBalancerIP: <public_ip>
   type: LoadBalancer
   ports:
   - port: 8083

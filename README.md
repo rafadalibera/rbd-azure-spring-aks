@@ -53,7 +53,7 @@
 
 ## How to Deploy the Application:
 
-### Deploy the Azure Infrastructure
+### Create the Service Principal in Azure 
 
 1. Login into to your Azure Subscription by using Azure CLI:
 
@@ -67,19 +67,27 @@ az login
 az account set --subscription <subscription_name>
 ```
 
-3. In the "Infra" folder, initiate Terraform:
+3. Create a Service Principal to be used for the Application Infrastructure
+
+```
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID>"
+```
+
+### Deploy the Azure Infrastructure
+
+1. In the "Infra" folder, initiate Terraform:
 
 ```
 terraform init
 ```
 
-4. Preview the resources that will be created: 
+2. Preview the resources that will be created: 
 
 ```
 terraform plan -out=<plan_name>
 ```
 
-5. Execute the plan to deploy the resources
+3. Execute the plan to deploy the resources
 
 ```
 terraform apply <plan_name>
@@ -87,7 +95,11 @@ terraform apply <plan_name>
 
 PS. It is recomened the creation of a file called: terraform.tfvars to specify all the variables needed to create the enviroment. This variables are defined on the "Infra\variables.tf" file.
 
+The variables aks_service_principal_app_id and aks_service_principal_client_secret correspond to the values appId and password of the Serivce Principal created on the previuos step
+
 ### Deploy the application
+
+Before building the application, update the variables azure.cosmosdb.uri, azure.cosmosdb.key and spring.jms.servicebus.connection-string on application.ymal and the variables spec.template,spec.containers.image, metadata.annotations.service.beta.kubernetes.io/azure-load-balancer-resource-group, spec.loadBalancerIP with the outputed values from the previous step. And package the application.
 
 1. Build the docker image to be deployed
 
@@ -112,9 +124,8 @@ docker push <image_name>:<tag>
 ```
 5. Get Azure Kubernetes Serivce (AKS) credentials using Azure CLI:
 ```
-az acr login --name <acrName>
-```
 az aks get-credentials --resource-group <resource_group_name> --name <aks_cluster_name>
+```
 
 6. Deploy application configuration
 ```
