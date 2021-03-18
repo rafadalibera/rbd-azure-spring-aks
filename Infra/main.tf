@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_role_assignment" "role_acrpull" {
   scope                            = azurerm_container_registry.acr.id
   role_definition_name             = "AcrPull"
-  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
+  principal_id                      = var.aks_service_principal_app_id
   skip_service_principal_aad_check = true
 }
 
@@ -40,14 +40,32 @@ resource "azurerm_kubernetes_cluster" "aks" {
     enable_auto_scaling = false
   }
 
-  identity {
-    type = "SystemAssigned"
+  service_principal {
+    client_id     = var.aks_service_principal_app_id
+    client_secret = var.aks_service_principal_client_secret
   }
 
   network_profile {
-    load_balancer_sku = "Standard"
     network_plugin    = "kubenet" # CNI
+    load_balancer_sku = "Standard"
   }
+}
+
+# ---------------------------- Networking  ----------------------------
+
+resource "azurerm_public_ip" "aks_ip" {
+  name                          = var.static_ip_name
+  location                      = azurerm_resource_group.rg.location
+  resource_group_name           = azurerm_resource_group.rg.name
+  allocation_method             = "Static"
+  sku                           = "Standard"
+}
+
+resource "azurerm_role_assignment" "aks_ip_rg" {
+  scope                             = azurerm_public_ip.aks_ip.id
+  role_definition_name              = "Contributor"
+  principal_id                      = var.aks_service_principal_app_id
+  skip_service_principal_aad_check  = true
 }
 
 # ---------------------------- Cosmos DB  ----------------------------

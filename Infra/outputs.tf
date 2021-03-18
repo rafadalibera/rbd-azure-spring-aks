@@ -20,6 +20,12 @@ output "acr_login_server" {
   value = azurerm_container_registry.acr.login_server
 }
 
+# ---------------------------- Networking  ----------------------------
+
+output "static_ip" {
+  value = azurerm_public_ip.aks_ip.ip_address
+}
+
 # ---------------------------- Cosmos DB  ----------------------------
 
 output "azure_cosmosdb_uri" {

@@ -1,3 +1,15 @@
+# ---------------------------- Service Princial  ----------------------------
+
+variable "aks_service_principal_app_id" {
+  type          = string
+  description   = "Service Principal appId"
+}
+
+variable "aks_service_principal_client_secret" {
+  type          = string
+  description   = "Service Principal password"
+}
+
 # ---------------------------- Resrouce Group  ----------------------------
 
 variable "resource_group_name" {
@@ -32,6 +44,18 @@ variable "kubernetes_version" {
 variable "system_node_count" {
   type        = number
   description = "Number of AKS worker nodes"
+}
+
+# ---------------------------- Networking  ----------------------------
+
+variable "role_definition_name" {
+  type        = string
+  description = "Role Definition Name"
+}
+
+variable "static_ip_name" {
+  type        = string
+  description = "Static IP Name"
 }
 
 # ---------------------------- Cosmos DB  ----------------------------
