@@ -38,6 +38,12 @@ output "azure_cosmosdb_key" {
 
 # ---------------------------- Azure Service Bus ----------------------------
 
-output "sb_connection_string"{
+output "sb_connection_string" {
   value = azurerm_servicebus_namespace.sb_namespace.default_primary_connection_string
+}
+
+# ---------------------------- Monitoring ----------------------------
+
+output "app_in_connection_string" {
+  value = azurerm_application_insights.app_insights.connection_string
 }

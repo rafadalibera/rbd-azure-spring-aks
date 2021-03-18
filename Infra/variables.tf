@@ -71,3 +71,13 @@ variable "servicebus_namespace_name" {
   type        = string
   description = "Service Bus namespace in Azure"
 }
+
+# ---------------------------- Monitoring ----------------------------
+
+variable "app_insights_name" {
+  type        = string
+  description = "Application Insights name"
+}
+
+
+

@@ -18,6 +18,8 @@ spec:
       - name: demo
         image: <acr>/demo:v1
         env:
+        - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+          value: <application_insights_connection_string>
         - name: ALLOW_EMPTY_PASSWORD
           value: "yes"
         ports:
